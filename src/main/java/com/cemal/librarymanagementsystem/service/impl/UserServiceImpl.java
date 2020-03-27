@@ -42,7 +42,9 @@ public class UserServiceImpl  implements UserDetailService {
 	            user.setEMail(registrationRequest.getEmail());
 	             user.setPassword(bCryptPasswordEncoder.encode(registrationRequest.getPassword()));
 	            user.setUsername(registrationRequest.getUsername());
+	            System.out.println(user);
 	            userRepository.save(user);
+	       
 	            return Boolean.TRUE;
 	        } catch (Exception e) {
 	            log.error("REGISTRATION=>", e);

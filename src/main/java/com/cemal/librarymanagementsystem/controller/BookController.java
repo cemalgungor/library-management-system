@@ -19,7 +19,6 @@ import com.cemal.librarymanagementsystem.entity.Books;
 import com.cemal.librarymanagementsystem.service.impl.BookServiceImpl;
 
 
-
 @RestController
 @RequestMapping("/api")
 public class BookController {
@@ -32,8 +31,7 @@ public class BookController {
 	
 	@GetMapping
 	public  ResponseEntity<List<Books>> getAllBooks(){
-		 
-		List<Books> data=bookServiceImpl.getAllBooks();
+		 	List<Books> data=bookServiceImpl.getAllBooks();
 		 return  ResponseEntity.ok(data);
 	}
 	@PostMapping
