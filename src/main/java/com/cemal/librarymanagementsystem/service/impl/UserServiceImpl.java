@@ -12,44 +12,42 @@ import com.cemal.librarymanagementsystem.repository.UserRepository;
 import com.cemal.librarymanagementsystem.service.UserDetailService;
 
 import lombok.extern.slf4j.Slf4j;
+
 @Service
 @Slf4j
-public class UserServiceImpl  implements UserDetailService {
-	  @Autowired
+public class UserServiceImpl implements UserDetailService {
+	@Autowired
 	private final UserRepository userRepository;
-	  @Autowired
+	@Autowired
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	
-	
 	public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
-	
+
 		this.userRepository = userRepository;
-		this.bCryptPasswordEncoder=bCryptPasswordEncoder;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
-
-
 
 	@Override
 	public User getByUsername(String username) {
-		 User u = userRepository.findByUsername(username);
+		User u = userRepository.findByUsername(username);
 		return u;
 	}
-	 @Transactional
-	    public Boolean register(RegistrationRequest registrationRequest) {
-	        try {
-	            User user = new User();
-	            user.setEMail(registrationRequest.getEmail());
-	             user.setPassword(bCryptPasswordEncoder.encode(registrationRequest.getPassword()));
-	            user.setUsername(registrationRequest.getUsername());
-	            System.out.println(user);
-	            userRepository.save(user);
-	       
-	            return Boolean.TRUE;
-	        } catch (Exception e) {
-	            log.error("REGISTRATION=>", e);
-	            return Boolean.FALSE;
-	        }
-	    }
+
+	@Transactional
+	public Boolean register(RegistrationRequest registrationRequest) {
+		try {
+			User user = new User();
+			user.setEMail(registrationRequest.getEmail());
+			user.setPassword(bCryptPasswordEncoder.encode(registrationRequest.getPassword()));
+			user.setUsername(registrationRequest.getUsername());
+			System.out.println(user);
+			userRepository.save(user);
+
+			return Boolean.TRUE;
+		} catch (Exception e) {
+			log.error("REGISTRATION=>", e);
+			return Boolean.FALSE;
+		}
+	}
 
 }

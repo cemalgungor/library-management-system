@@ -20,27 +20,30 @@ import com.cemal.librarymanagementsystem.service.impl.UserServiceImpl;
 @RequestMapping("/api/token")
 public class AccountController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserServiceImpl userService;
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	@Autowired
+	private JwtTokenUtil jwtTokenUtil;
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private UserServiceImpl userService;
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest request) throws AuthenticationException {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        final User user = userRepository.findByUsername(request.getUsername());
-        final String token = jwtTokenUtil.generateToken(user);
-        return ResponseEntity.ok(new TokenResponse(user.getUsername(), token));
-    }
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest request) throws AuthenticationException {
+		System.out.println(request.getUsername());
+		authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+		final User user = userRepository.findByUsername(request.getUsername());
+		final String token = jwtTokenUtil.generateToken(user);
+		return ResponseEntity.ok(new TokenResponse(user.getUsername(), token));
+	}
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<Boolean> register(@RequestBody RegistrationRequest registrationRequest) throws AuthenticationException {
-        Boolean response = userService.register(registrationRequest);
-        return ResponseEntity.ok(response);
-    }
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ResponseEntity<Boolean> register(@RequestBody RegistrationRequest registrationRequest)
+			throws AuthenticationException {
+		Boolean response = userService.register(registrationRequest);
+		return ResponseEntity.ok(response);
+	}
 
 }

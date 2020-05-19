@@ -10,7 +10,7 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-    return this.http.post<any>('http://localhost:8080/token', {username, password})
+    return this.http.post<any>('http://localhost:8000/api/token', {username, password})
       .pipe(map(user => {
         if (user && user.token) {
           localStorage.setItem('currentUser', JSON.stringify(user));
@@ -20,7 +20,7 @@ export class AuthenticationService {
   }
 
   register(registerData) {
-    return this.http.post<any>('http://localhost:8080/token/token/register', registerData)
+    return this.http.post<any>('http://localhost:8000/api/token/register', registerData)
       .pipe(map(resp => {
         return resp;
       }));

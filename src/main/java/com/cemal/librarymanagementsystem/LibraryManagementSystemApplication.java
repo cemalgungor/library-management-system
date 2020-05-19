@@ -1,5 +1,6 @@
 package com.cemal.librarymanagementsystem;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -19,4 +20,8 @@ public class LibraryManagementSystemApplication {
         factory.setResources(new Resource[]{new ClassPathResource("projects.json")});
         return factory;
     }*/
+	@Bean
+	public ModelMapper modelMapper() {
+	 return new ModelMapper();
+	}
 }

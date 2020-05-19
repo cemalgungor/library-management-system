@@ -9,8 +9,7 @@ const routes: Routes = [
    {
     path: '', canActivate: [AuthGuard],
     children: [
-      {path: '', pathMatch: 'full', redirectTo: 'book'},
-         {path: 'book',  loadChildren : () => import('./pages/book/book.module').then(m => m.BookModule)},
+      {path: '', pathMatch: 'full', redirectTo: 'dashboard'},
          {path: 'dashboard',  loadChildren : () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule)}
        ]
   },
